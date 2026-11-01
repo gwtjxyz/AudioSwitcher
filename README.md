@@ -26,6 +26,9 @@ So far the app has saved me many clicks, and I hope it can do the same for you a
 
 ## Usage
 
+[You can download the latest release here.](https://github.com/gwtjxyz/AudioSwitcher/releases) If you don't trust me not to put crypto miners or keyloggers
+into the .exe, you can build it yourself instead.
+
 Simply open the program and find the little speaker icon in your system tray. It should look something like the image at the top of this Readme, and it should
 automatically enumerate and list all the audio devices you have on your PC. Click on the device you want to use, and it'll set that device as both the Default
 Device as well as the Default Communication Device. For more granular control, select the "Open Sound Settings" item in the menu and it'll bring up the old
