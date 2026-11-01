@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AudioSwitcher", "AudioSwitcher\AudioSwitcher.vcxproj", "{22882411-BE2A-4CBD-9773-ABECDB20DFC4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22882411-BE2A-4CBD-9773-ABECDB20DFC4}.Debug|x64.ActiveCfg = Debug|x64
+		{22882411-BE2A-4CBD-9773-ABECDB20DFC4}.Debug|x64.Build.0 = Debug|x64
+		{22882411-BE2A-4CBD-9773-ABECDB20DFC4}.Debug|x86.ActiveCfg = Debug|Win32
+		{22882411-BE2A-4CBD-9773-ABECDB20DFC4}.Debug|x86.Build.0 = Debug|Win32
+		{22882411-BE2A-4CBD-9773-ABECDB20DFC4}.Release|x64.ActiveCfg = Release|x64
+		{22882411-BE2A-4CBD-9773-ABECDB20DFC4}.Release|x64.Build.0 = Release|x64
+		{22882411-BE2A-4CBD-9773-ABECDB20DFC4}.Release|x86.ActiveCfg = Release|Win32
+		{22882411-BE2A-4CBD-9773-ABECDB20DFC4}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C1C62FD-CDC0-4041-B30F-88D4668399EB}
+	EndGlobalSection
+EndGlobal
