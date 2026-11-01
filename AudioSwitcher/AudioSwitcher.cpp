@@ -13,7 +13,13 @@
 
 #define MAX_LOADSTRING 100
 
+// Surely this won't overflow
+#define MAX_AUDIO_DEVICE_NAME 256
+
 #define NOTIFICATION_TRAY_ICON_MSG (WM_USER + 0x100)
+
+#define MENU_ITEM_AUDIO_SETTINGS (IDM_EXIT + 1)
+#define MENU_ITEM_AUDIO_DEVICE_START (MENU_ITEM_AUDIO_SETTINGS + 1)
 
 // Global Variables:
 HINSTANCE g_hInst;                                // current instance
@@ -191,6 +197,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             // Parse the menu selections:
             switch (wmId)
             {
+            case MENU_ITEM_AUDIO_SETTINGS:
+            {
+                // Open advanced audio settings
+                SHELLEXECUTEINFOW execInfo {};
+                execInfo.cbSize = sizeof(execInfo);
+                execInfo.hwnd = NULL;
+                execInfo.lpVerb = L"open";
+                execInfo.lpFile = L"control.exe";
+                execInfo.lpParameters = L"mmsys.cpl";
+                execInfo.nShow = SW_SHOWNORMAL;
+
+                if (!ShellExecuteExW(&execInfo)) {
+                    OutputDebugString(L"Couldn't open audio settings!\n");
+                }
+                break;
+            }
             case IDM_ABOUT:
             {
                 DialogBoxW(NULL, MAKEINTRESOURCEW(IDD_ABOUTBOX), hWnd, AboutBoxProc);
@@ -251,6 +273,9 @@ void OpenContextMenu(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
             InsertMenu(hMenu, 0, MF_BYPOSITION | MF_STRING, IDM_ABOUT, L"About AudioSwitcher");
             InsertMenu(hMenu, 0, MF_BYPOSITION | MF_SEPARATOR, 0, 0);
 
+            InsertMenu(hMenu, 0, MF_BYPOSITION | MF_STRING, MENU_ITEM_AUDIO_SETTINGS, L"Open Sound Settings");
+            InsertMenu(hMenu, 0, MF_BYPOSITION | MF_SEPARATOR, 0, 0);
+
             // add possible audio devices to the list
             IMMDeviceCollection * pDevices;
             HRESULT hr = g_pEnumerator->EnumAudioEndpoints(EDataFlow::eRender, DEVICE_STATE_ACTIVE, &pDevices);
@@ -271,7 +296,8 @@ void OpenContextMenu(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
                 hr = pDevices->Item(i, &pDevice);
 
                 AudioDeviceEntry entry = {};
-                entry.tag = IDM_EXIT + i + 1;
+                UINT entryId = MENU_ITEM_AUDIO_DEVICE_START + i;
+                entry.tag = entryId;
                 hr = pDevice->GetId(&entry.pDeviceId);
                 g_Entries.push_back(entry);
                 IPropertyStore * pProperties;
@@ -282,7 +308,7 @@ void OpenContextMenu(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 
                 hr = pProperties->GetValue(PKEY_Device_FriendlyName, &varName);
                 if (varName.vt != VT_EMPTY) {
-                    const size_t bufSize = 100;
+                    const size_t bufSize = MAX_AUDIO_DEVICE_NAME;
                     TCHAR audioDeviceNameBuffer[bufSize];
                     StringCchPrintf(audioDeviceNameBuffer, bufSize, TEXT("[%d] %s"), i, varName.pwszVal);
                     
@@ -292,7 +318,7 @@ void OpenContextMenu(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
                         OutputDebugString(TEXT("Found default device! \n"));
                         flags |= MF_CHECKED;
                     }
-                    InsertMenu(hMenu, i, flags, IDM_EXIT + i + 1, audioDeviceNameBuffer);
+                    InsertMenu(hMenu, i, flags, entryId, audioDeviceNameBuffer);
                 }
 
                 PropVariantClear(&varName);

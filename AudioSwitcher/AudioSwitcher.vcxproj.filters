@@ -51,8 +51,5 @@
     <Image Include="audio_icon.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="audio.png">
-      <Filter>Resource Files</Filter>
-    </Image>
   </ItemGroup>
 </Project>

@@ -140,10 +140,14 @@
     <ResourceCompile Include="AudioSwitcher.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="audio.png" />
+    <Image Include="..\readme\audio-switcher.png" />
     <Image Include="AudioSwitcher.ico" />
     <Image Include="audio_icon.ico" />
     <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\.gitignore" />
+    <None Include="..\README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
